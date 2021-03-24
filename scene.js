@@ -82,6 +82,7 @@ video.onloadeddata = function () {
   video.play();
 };
 
+let videoMaterial;
 function createElevationMap() {
   let discrete = 8;
   console.log("Plane horizontal and vertical segments:",
@@ -93,7 +94,7 @@ function createElevationMap() {
     video.videoHeight/discrete,
   );
 
-  let videoMaterial = new THREE.ShaderMaterial({
+  videoMaterial = new THREE.ShaderMaterial({
     uniforms: {
       image: {value: videoTexture},
       scaleElevation: {type: "f", value: 0.2},
