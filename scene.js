@@ -3,8 +3,18 @@ import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/Orb
 import { Interaction } from "./vendor/three\.interaction/build/three\.interaction\.module.js";
 
 // Setup scene
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0A0A0A);
+const cubePath = "./assets/cubeMap/";
+const cubeFormat = '.jpg';
+const cubeURLs = [
+  cubePath + 'posx' + cubeFormat, cubePath + 'negx' + cubeFormat,
+  cubePath + 'posy' + cubeFormat, cubePath + 'negy' + cubeFormat,
+  cubePath + 'posz' + cubeFormat, cubePath + 'negz' + cubeFormat
+];
+
+const textureCube = new THREE.CubeTextureLoader().load( cubeURLs );
+
+let scene = new THREE.Scene();
+scene.background = textureCube;
 
 // Camera configuration
 // Parameters: FOV, aspect ratio, minimum rendering distance, maximum rendering distance
