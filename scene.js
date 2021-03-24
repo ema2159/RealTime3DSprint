@@ -131,6 +131,9 @@ function createGUI() {
   let gui = new GUI();
   gui.add(cameraControls, "goToVideo").name("Go to Video");
   gui.add(cameraControls, "goToEMap").name("Go to Elev. Map");
+  gui
+    .add(videoMaterial.uniforms.chanel, "value", {RGB: 0, R: 1, G: 2, B: 3})
+    .name("Operation");
 }
 
 // Basic controls
