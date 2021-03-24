@@ -72,9 +72,10 @@ video.onloadeddata = function () {
   let plane = new THREE.Mesh(geometry, videoMaterial);
   plane.receiveShadow = false;
   plane.castShadow = false;
-  plane.position.z = -0.5;
-  plane.position.y = 0.08;
+  plane.position.set(0, 0.08, -0.5);
   scene.add(plane);
+
+  createElevationMap();
 
   video.play();
 };
@@ -86,6 +87,26 @@ var cameraControls = {
     controls.update();
   },
 };
+
+function createElevationMap() {
+  let geometry = new THREE.PlaneGeometry(
+    1,
+    video.videoHeight / video.videoWidth
+  );
+  console.log(videoTexture);
+  let videoMaterial = new THREE.MeshBasicMaterial({
+    map: videoTexture,
+    side: THREE.DoubleSide,
+  });
+  let plane = new THREE.Mesh(geometry, videoMaterial);
+  plane.receiveShadow = false;
+  plane.castShadow = false;
+  plane.position.set(-1, -0.2, 0);
+  plane.rotation.x = Math.PI/2;
+  plane.rotation.z = Math.PI/2;
+  scene.add(plane);
+};
+
 // Fixed GUI
 let gui = new GUI();
 gui.add(cameraControls, "goToVideo").name("Go to Video");
