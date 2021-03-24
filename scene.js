@@ -1,6 +1,7 @@
 import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/OrbitControls.js";
 import { Interaction } from "./vendor/three\.interaction/build/three\.interaction\.module.js";
+import {GUI} from "https://unpkg.com/three/examples/jsm/libs/dat.gui.module.js";
 
 // Setup scene
 const cubePath = "./assets/cubeMap/";
@@ -76,6 +77,17 @@ video.onloadeddata = function () {
 
   video.play();
 };
+
+var cameraControls = {
+  goToVideo: function () {
+    camera.position.set(0, 0, 0);
+    controls.target.set(0, 0, -2);
+    controls.update();
+  },
+};
+// Fixed GUI
+let gui = new GUI();
+gui.add(cameraControls, "goToVideo").name("Go to Video");
 
 // Basic controls
 // Function for creating boxes with rounded edges
