@@ -128,6 +128,12 @@ function createVideoInterface() {
   scene.add(playPauseButton);
   playPauseButton.cursor = 'pointer';
   playPauseButton.on('click', pausePlayObj.pausePlay);
+  playPauseButton.on('mouseover', function() {
+    this.material.color.setHex(0xB0B0B0);
+  });
+  playPauseButton.on('mouseout', function() {
+    this.material.color.setHex(0xDADADA);
+  });
 
   // Forward and backward buttons
   let forwardButtonMaterial = new THREE.MeshBasicMaterial({
@@ -141,6 +147,12 @@ function createVideoInterface() {
   scene.add(forwardButton);
   forwardButton.cursor = 'pointer';
   forwardButton.on('click', pausePlayObj.add10sec);
+  forwardButton.on('mouseover', function() {
+    this.material.color.setHex(0xB0B0B0);
+  });
+  forwardButton.on('mouseout', function() {
+    this.material.color.setHex(0xDADADA);
+  });
 
   let backwardButtonMaterial = new THREE.MeshBasicMaterial({
     // map: videoTexture,
@@ -152,7 +164,13 @@ function createVideoInterface() {
   backwardButton.position.set(-0.15, -0.3,-0.5);
   scene.add(backwardButton);
   backwardButton.cursor = 'pointer';
-  backwardButton.on('dblclick', pausePlayObj.remove10sec);
+  backwardButton.on('click', pausePlayObj.remove10sec);
+  backwardButton.on('mouseover', function() {
+    this.material.color.setHex(0xB0B0B0);
+  });
+  backwardButton.on('mouseout', function() {
+    this.material.color.setHex(0xDADADA);
+  });
 }
 
 createVideoInterface();
