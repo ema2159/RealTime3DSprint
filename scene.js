@@ -1,5 +1,6 @@
 import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/OrbitControls.js";
+import { Interaction } from "./vendor/three\.interaction/build/three\.interaction\.module.js";
 
 // Setup scene
 const scene = new THREE.Scene();
@@ -21,6 +22,9 @@ camera.position.z = 0;
 const renderer = new THREE.WebGLRenderer();
 // Set renderer size (window size)
 renderer.setSize(window.innerWidth, window.innerHeight);
+
+// Setup Interactive module
+const interaction = new Interaction(renderer, scene, camera);
 
 // Setup orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
