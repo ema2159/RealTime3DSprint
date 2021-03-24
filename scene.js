@@ -116,27 +116,39 @@ function createVideoInterface() {
 
   let buttonGeometry = createBoxWithRoundedEdges(0.1, 0.1, 0.02, 0.01, 3);
 
-  let buttonMaterial = new THREE.MeshBasicMaterial({
+  let playButtonMaterial = new THREE.MeshBasicMaterial({
     // map: videoTexture,
     side: THREE.DoubleSide,
     color: 0xDADADA,
   });
 
   // Play/pause button
-  let playPauseButton = new THREE.Mesh(buttonGeometry, buttonMaterial);
+  let playPauseButton = new THREE.Mesh(buttonGeometry, playButtonMaterial);
   playPauseButton.position.set(0, -0.3,-0.5);
   scene.add(playPauseButton);
   playPauseButton.cursor = 'pointer';
   playPauseButton.on('click', pausePlayObj.pausePlay);
 
   // Forward and backward buttons
-  let forwardButton = new THREE.Mesh(buttonGeometry, buttonMaterial);
+  let forwardButtonMaterial = new THREE.MeshBasicMaterial({
+    // map: videoTexture,
+    side: THREE.DoubleSide,
+    color: 0xDADADA,
+  });
+
+  let forwardButton = new THREE.Mesh(buttonGeometry, forwardButtonMaterial);
   forwardButton.position.set(0.15, -0.3,-0.5);
   scene.add(forwardButton);
   forwardButton.cursor = 'pointer';
   forwardButton.on('click', pausePlayObj.add10sec);
 
-  let backwardButton = new THREE.Mesh(buttonGeometry, buttonMaterial);
+  let backwardButtonMaterial = new THREE.MeshBasicMaterial({
+    // map: videoTexture,
+    side: THREE.DoubleSide,
+    color: 0xDADADA,
+  });
+
+  let backwardButton = new THREE.Mesh(buttonGeometry, backwardButtonMaterial);
   backwardButton.position.set(-0.15, -0.3,-0.5);
   scene.add(backwardButton);
   backwardButton.cursor = 'pointer';
