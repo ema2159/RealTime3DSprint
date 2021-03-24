@@ -122,11 +122,25 @@ function createVideoInterface() {
     color: 0xDADADA,
   });
 
+  // Play/pause button
   let playPauseButton = new THREE.Mesh(buttonGeometry, buttonMaterial);
   playPauseButton.position.set(0, -0.3,-0.5);
   scene.add(playPauseButton);
   playPauseButton.cursor = 'pointer';
   playPauseButton.on('click', pausePlayObj.pausePlay);
+
+  // Forward and backward buttons
+  let forwardButton = new THREE.Mesh(buttonGeometry, buttonMaterial);
+  forwardButton.position.set(0.15, -0.3,-0.5);
+  scene.add(forwardButton);
+  forwardButton.cursor = 'pointer';
+  forwardButton.on('click', pausePlayObj.add10sec);
+
+  let backwardButton = new THREE.Mesh(buttonGeometry, buttonMaterial);
+  backwardButton.position.set(-0.15, -0.3,-0.5);
+  scene.add(backwardButton);
+  backwardButton.cursor = 'pointer';
+  backwardButton.on('dblclick', pausePlayObj.remove10sec);
 }
 
 createVideoInterface();
