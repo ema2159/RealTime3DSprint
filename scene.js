@@ -114,7 +114,7 @@ function createVideoInterface() {
     },
   };
 
-  let buttonGeometry = createBoxWithRoundedEdges(0.2, 0.1, 0.02, 0.01, 3);
+  let buttonGeometry = createBoxWithRoundedEdges(0.1, 0.1, 0.02, 0.01, 3);
 
   let buttonMaterial = new THREE.MeshBasicMaterial({
     // map: videoTexture,
