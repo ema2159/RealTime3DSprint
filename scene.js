@@ -47,13 +47,14 @@ document.body.appendChild(renderer.domElement);
 
 // Create video
 let video = document.createElement("video");
+let videoTexture;
 video.src = "./assets/video.mp4";
 video.load();
 video.muted = true;
 video.loop = true;
 
 video.onloadeddata = function () {
-  let videoTexture = new THREE.VideoTexture(video);
+  videoTexture = new THREE.VideoTexture(video);
   videoTexture.wrapS = videoTexture.wrapT = THREE.RepeatWrapping;
   videoTexture.minFilter = THREE.NearestFilter;
   videoTexture.magFilter = THREE.NearestFilter;
