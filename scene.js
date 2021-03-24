@@ -34,6 +34,39 @@ controls.listenToKeyEvents(window); // optional
 // Append renderer to index.html body
 document.body.appendChild(renderer.domElement);
 
+// Create video
+let video = document.createElement("video");
+video.src = "./assets/video.mp4";
+video.load();
+video.muted = true;
+video.loop = true;
+
+video.onloadeddata = function () {
+  let videoTexture = new THREE.VideoTexture(video);
+  videoTexture.wrapS = videoTexture.wrapT = THREE.RepeatWrapping;
+  videoTexture.minFilter = THREE.NearestFilter;
+  videoTexture.magFilter = THREE.NearestFilter;
+  videoTexture.generateMipmaps = false;
+  videoTexture.format = THREE.RGBFormat;
+
+  let geometry = new THREE.PlaneGeometry(
+    1,
+    video.videoHeight / video.videoWidth
+  );
+  let videoMaterial = new THREE.MeshBasicMaterial({
+    map: videoTexture,
+    side: THREE.DoubleSide,
+  });
+  let plane = new THREE.Mesh(geometry, videoMaterial);
+  plane.receiveShadow = false;
+  plane.castShadow = false;
+  plane.position.z = -0.5;
+  plane.position.y = 0.08;
+  scene.add(plane);
+
+  video.play();
+};
+
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
