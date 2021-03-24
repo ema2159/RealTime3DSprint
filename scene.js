@@ -92,6 +92,41 @@ function createBoxWithRoundedEdges( width, height, depth, radius0, smoothness ) 
   return geometry;
 };
 
+// Function for creating the play/pause, forward and backward buttons for the video.
+function createVideoInterface() {
+  let pausePlayObj = {
+    pausePlay: function () {
+      if (!video.paused) {
+	console.log("pause");
+	video.pause();
+      } else {
+	console.log("play");
+	video.play();
+      }
+    },
+    add10sec: function () {
+      video.currentTime = video.currentTime + 10;
+      console.log(video.currentTime);
+    },
+  };
+
+  let buttonGeometry = createBoxWithRoundedEdges(0.2, 0.1, 0.02, 0.01, 3);
+
+  let buttonMaterial = new THREE.MeshBasicMaterial({
+    // map: videoTexture,
+    side: THREE.DoubleSide,
+    color: 0xDADADA,
+  });
+
+  let playPauseButton = new THREE.Mesh(buttonGeometry, buttonMaterial);
+  playPauseButton.position.set(0, -0.3,-0.5);
+  scene.add(playPauseButton);
+  playPauseButton.cursor = 'pointer';
+  playPauseButton.on('click', pausePlayObj.pausePlay);
+}
+
+createVideoInterface();
+
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
