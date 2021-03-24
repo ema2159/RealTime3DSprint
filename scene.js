@@ -108,6 +108,10 @@ function createVideoInterface() {
       video.currentTime = video.currentTime + 10;
       console.log(video.currentTime);
     },
+    remove10sec: function () {
+      video.currentTime = video.currentTime - 1;
+      console.log(video.currentTime);
+    },
   };
 
   let buttonGeometry = createBoxWithRoundedEdges(0.2, 0.1, 0.02, 0.01, 3);
