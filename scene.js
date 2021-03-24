@@ -87,6 +87,11 @@ var cameraControls = {
     controls.target.set(0, 0, -2);
     controls.update();
   },
+  goToEMap: function () {
+    camera.position.set(0, 0.5, 0);
+    controls.target.set(-2, 0, 0);
+    controls.update();
+  },
 };
 
 function createElevationMap() {
@@ -122,6 +127,7 @@ function createElevationMap() {
 // Fixed GUI
 let gui = new GUI();
 gui.add(cameraControls, "goToVideo").name("Go to Video");
+gui.add(cameraControls, "goToEMap").name("Go to Elev. Map");
 
 // Basic controls
 // Function for creating boxes with rounded edges
