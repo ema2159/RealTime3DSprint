@@ -2,6 +2,7 @@ import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/OrbitControls.js";
 import { Interaction } from "./vendor/three\.interaction/build/three\.interaction\.module.js";
 import {GUI} from "https://unpkg.com/three/examples/jsm/libs/dat.gui.module.js";
+import {vertexShader, fragmentShader} from "./shaders.js";
 
 // Setup scene
 const cubePath = "./assets/cubeMap/";
@@ -89,21 +90,32 @@ var cameraControls = {
 };
 
 function createElevationMap() {
+  let discrete = 8;
+  console.log("Plane horizontal and vertical segments:",
+	      [video.videoWidth/discrete, video.videoHeight/discrete]);
   let geometry = new THREE.PlaneGeometry(
     1,
-    video.videoHeight / video.videoWidth
+    video.videoHeight / video.videoWidth,
+    video.videoWidth/discrete,
+    video.videoHeight/discrete,
   );
-  console.log(videoTexture);
-  let videoMaterial = new THREE.MeshBasicMaterial({
-    map: videoTexture,
-    side: THREE.DoubleSide,
+
+  let videoMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+      image: {value: videoTexture},
+      scaleElevation: {type: "f", value: 0.2},
+      chanel: {type: "i", value: 0},
+    },
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
   });
   let plane = new THREE.Mesh(geometry, videoMaterial);
   plane.receiveShadow = false;
   plane.castShadow = false;
   plane.position.set(-1, -0.2, 0);
-  plane.rotation.x = Math.PI/2;
+  plane.rotation.x = -Math.PI/2;
   plane.rotation.z = Math.PI/2;
+  plane.material.side = THREE.DoubleSide;
   scene.add(plane);
 };
 
