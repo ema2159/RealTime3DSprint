@@ -73,7 +73,6 @@ video.onloadeddata = function () {
   );
   let videoMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      scaleElevation: {type: "f", value: 0.2},
       ...commonUniforms,
     },
     vertexShader: VvertexShader,
