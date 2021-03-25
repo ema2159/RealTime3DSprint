@@ -162,11 +162,23 @@ function createGUI() {
       controls.target.set(-2, 0, 0);
       controls.update();
     },
+    goToCCloud: function () {
+      camera.position.set(-0.7, 0.4, 0.5);
+      controls.target.set(1.5, 0, -0.5);
+      controls.update();
+    },
+    showAll: function () {
+      camera.position.set(0, 0.6, 1.4);
+      controls.target.set(0, 0, 0);
+      controls.update();
+    },
   };
 
   let gui = new GUI();
-  gui.add(cameraControls, "goToVideo").name("Go to Video");
-  gui.add(cameraControls, "goToEMap").name("Go to Elev. Map");
+  gui.add(cameraControls, "goToVideo").name("Go to video");
+  gui.add(cameraControls, "goToEMap").name("Go to elev. map");
+  gui.add(cameraControls, "goToCCloud").name("Go to color cloud");
+  gui.add(cameraControls, "showAll").name("Show all");
   gui
     .add(videoMaterial.uniforms.chanel, "value", {RGB: 0, R: 1, G: 2, B: 3})
     .name("Chanel");
