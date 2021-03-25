@@ -94,7 +94,7 @@ video.onloadeddata = function () {
   video.play();
 };
 
-let videoMaterial;
+let EMMaterial;
 function createElevationMap() {
   let discrete = 8;
   console.log("Plane horizontal and vertical segments:",
@@ -106,15 +106,15 @@ function createElevationMap() {
     video.videoHeight/discrete,
   );
 
-  videoMaterial = new THREE.ShaderMaterial({
+  EMMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      scaleElevation: {type: "f", value: 0.2},
+      scaleElevation: {type: "f", value: 0.1},
       ...commonUniforms,
     },
     vertexShader: EMvertexShader,
     fragmentShader: EMfragmentShader,
   });
-  let plane = new THREE.Mesh(geometry, videoMaterial);
+  let plane = new THREE.Mesh(geometry, EMMaterial);
   plane.receiveShadow = false;
   plane.castShadow = false;
   plane.position.set(0, -0.5, 0);
