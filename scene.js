@@ -47,6 +47,9 @@ controls.listenToKeyEvents(window); // optional
 // Append renderer to index.html body
 document.body.appendChild(renderer.domElement);
 
+// Common shader uniforms
+let commonUniforms;
+
 // Create video
 let video = document.createElement("video");
 let videoTexture;
@@ -60,6 +63,11 @@ video.onloadeddata = function () {
   videoTexture.wrapS = videoTexture.wrapT = THREE.RepeatWrapping;
   videoTexture.generateMipmaps = false;
   videoTexture.format = THREE.RGBFormat;
+
+  commonUniforms = {
+    image: {value: videoTexture},
+    chanel: {type: "i", value: 0},
+  }
 
   let geometry = new THREE.PlaneGeometry(
     1,
@@ -97,9 +105,8 @@ function createElevationMap() {
 
   videoMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      image: {value: videoTexture},
       scaleElevation: {type: "f", value: 0.2},
-      chanel: {type: "i", value: 0},
+      ...commonUniforms,
     },
     vertexShader: EMvertexShader,
     fragmentShader: EMfragmentShader,
@@ -122,7 +129,7 @@ function createColorCloud() {
     vertexShader: CCvertexShader,
     fragmentShader: CCfragmentShader,
     uniforms: {
-      tex: { value: videoTexture },
+      ...commonUniforms
     }
   });
 
@@ -180,7 +187,7 @@ function createGUI() {
   gui.add(cameraControls, "goToCCloud").name("Go to color cloud");
   gui.add(cameraControls, "showAll").name("Show all");
   gui
-    .add(videoMaterial.uniforms.chanel, "value", {RGB: 0, R: 1, G: 2, B: 3})
+    .add(commonUniforms.chanel, "value", {RGB: 0, R: 1, G: 2, B: 3})
     .name("Chanel");
 }
 
