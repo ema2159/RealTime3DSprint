@@ -76,6 +76,7 @@ video.onloadeddata = function () {
 
   createElevationMap();
   createGUI();
+  createVideoInterface();
 
   video.play();
 };
@@ -239,8 +240,6 @@ function createVideoInterface() {
     this.material.color.setHex(0xDADADA);
   });
 }
-
-createVideoInterface();
 
 function animate() {
   requestAnimationFrame(animate);
