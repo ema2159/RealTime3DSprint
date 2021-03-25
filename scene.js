@@ -57,8 +57,6 @@ video.loop = true;
 video.onloadeddata = function () {
   videoTexture = new THREE.VideoTexture(video);
   videoTexture.wrapS = videoTexture.wrapT = THREE.RepeatWrapping;
-  videoTexture.minFilter = THREE.NearestFilter;
-  videoTexture.magFilter = THREE.NearestFilter;
   videoTexture.generateMipmaps = false;
   videoTexture.format = THREE.RGBFormat;
 
