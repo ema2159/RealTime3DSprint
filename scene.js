@@ -4,7 +4,7 @@ import { Interaction } from "./vendor/three\.interaction/build/three\.interactio
 import {GUI} from "https://unpkg.com/three/examples/jsm/libs/dat.gui.module.js";
 import {EMvertexShader, EMfragmentShader} from "./EMshaders.js";
 import {CCvertexShader, CCfragmentShader} from "./CCshaders.js";
-import {vertexShader, fragmentShader} from "./shaders.js";
+import {VvertexShader, VfragmentShader} from "./Vshaders.js";
 
 // Setup scene
 const cubePath = "./assets/cubeMap/";
@@ -79,8 +79,8 @@ video.onloadeddata = function () {
       scaleElevation: {type: "f", value: 0.2},
       ...commonUniforms,
     },
-    vertexShader: vertexShader,
-    fragmentShader: fragmentShader,
+    vertexShader: VvertexShader,
+    fragmentShader: VfragmentShader,
     side: THREE.DoubleSide,
   });
   let plane = new THREE.Mesh(geometry, videoMaterial);
