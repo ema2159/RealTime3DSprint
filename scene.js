@@ -7,18 +7,15 @@ import {CCvertexShader, CCfragmentShader} from "./CCshaders.js";
 import {VvertexShader, VfragmentShader} from "./Vshaders.js";
 
 // Setup scene
-const cubePath = "./assets/cubeMap/";
-const cubeFormat = '.jpg';
-const cubeURLs = [
-  cubePath + 'posx' + cubeFormat, cubePath + 'negx' + cubeFormat,
-  cubePath + 'posy' + cubeFormat, cubePath + 'negy' + cubeFormat,
-  cubePath + 'posz' + cubeFormat, cubePath + 'negz' + cubeFormat
-];
-
-const textureCube = new THREE.CubeTextureLoader().load( cubeURLs );
-
 let scene = new THREE.Scene();
-scene.background = textureCube;
+const loader = new THREE.TextureLoader();
+const texture = loader.load(
+  "./assets/panMap/milky.jpg",
+  () => {
+    const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+    rt.fromEquirectangularTexture(renderer, texture);
+    scene.background = rt;
+  });
 
 // Camera configuration
 // Parameters: FOV, aspect ratio, minimum rendering distance, maximum rendering distance
