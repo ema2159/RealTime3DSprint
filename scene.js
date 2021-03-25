@@ -154,9 +154,23 @@ function createColorCloud() {
   CCgeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   CCgeometry.computeBoundingSphere();
 
+  const ccpos = [1.7, 0, -0.3];
   points = new THREE.Points(CCgeometry, colorSpaceMaterial);
-  points.position.set(1.5, 0, -0.3);
+  points.position.set(...ccpos);
+  points.rotation.y = Math.PI/2;
   scene.add(points);
+
+  const gridHelper1 = new THREE.GridHelper( 1, 10, 0xff0000, 0x808080 );
+  gridHelper1.position.set(ccpos[0], ccpos[1]-0.5, ccpos[2])
+  scene.add( gridHelper1 );
+  const gridHelper2 = new THREE.GridHelper( 1, 10, 0x00ff00, 0x808080 );
+  gridHelper2.rotation.z = Math.PI/2;
+  gridHelper2.position.set(ccpos[0]+0.5, ccpos[1], ccpos[2])
+  scene.add( gridHelper2 );
+  const gridHelper3 = new THREE.GridHelper( 1, 10, 0x0000ff, 0x808080 );
+  gridHelper3.rotation.x = Math.PI/2;
+  gridHelper3.position.set(ccpos[0], ccpos[1], ccpos[2]-0.5)
+  scene.add( gridHelper3 );
 }
 
 // Fixed GUI
