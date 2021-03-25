@@ -117,9 +117,8 @@ function createElevationMap() {
   let plane = new THREE.Mesh(geometry, videoMaterial);
   plane.receiveShadow = false;
   plane.castShadow = false;
-  plane.position.set(-1, -0.2, 0);
+  plane.position.set(0, -0.5, 0);
   plane.rotation.x = -Math.PI/2;
-  plane.rotation.z = Math.PI/2;
   plane.material.side = THREE.DoubleSide;
   scene.add(plane);
 };
@@ -189,8 +188,8 @@ function createGUI() {
       controls.update();
     },
     goToEMap: function () {
-      camera.position.set(0, 0.5, 0);
-      controls.target.set(-2, 0, 0);
+      camera.position.set(0, 0.5, 1);
+      controls.target.set(0, 0, 0);
       controls.update();
     },
     goToCCloud: function () {
