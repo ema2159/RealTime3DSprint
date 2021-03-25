@@ -2,7 +2,7 @@ import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/OrbitControls.js";
 import { Interaction } from "./vendor/three\.interaction/build/three\.interaction\.module.js";
 import {GUI} from "https://unpkg.com/three/examples/jsm/libs/dat.gui.module.js";
-import {vertexShader, fragmentShader} from "./shaders.js";
+import {EMvertexShader, EMfragmentShader} from "./EMshaders.js";
 
 // Setup scene
 const cubePath = "./assets/cubeMap/";
@@ -98,8 +98,8 @@ function createElevationMap() {
       scaleElevation: {type: "f", value: 0.2},
       chanel: {type: "i", value: 0},
     },
-    vertexShader: vertexShader,
-    fragmentShader: fragmentShader,
+    vertexShader: EMvertexShader,
+    fragmentShader: EMfragmentShader,
   });
   let plane = new THREE.Mesh(geometry, videoMaterial);
   plane.receiveShadow = false;

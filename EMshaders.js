@@ -1,4 +1,4 @@
-const vertexShader = `
+const EMvertexShader = `
 varying vec2 vUv;
 uniform float scaleElevation; 
 uniform int chanel;
@@ -22,7 +22,7 @@ void main() {
   gl_Position = projectionMatrix * modelViewMatrix * vec4(tmp, 1.0);
 }
 `
-const fragmentShader = `
+const EMfragmentShader = `
 varying vec2 vUv;
 uniform sampler2D tex;
 
@@ -32,4 +32,4 @@ void main() {
   gl_FragColor.a = 1.0;
 }
 `
-export {vertexShader, fragmentShader}
+export {EMvertexShader, EMfragmentShader}
