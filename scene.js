@@ -131,7 +131,7 @@ function createGUI() {
   gui.add(cameraControls, "goToEMap").name("Go to Elev. Map");
   gui
     .add(videoMaterial.uniforms.chanel, "value", {RGB: 0, R: 1, G: 2, B: 3})
-    .name("Operation");
+    .name("Chanel");
 }
 
 // Basic controls
