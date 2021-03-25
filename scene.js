@@ -2,9 +2,9 @@ import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/OrbitControls.js";
 import { Interaction } from "./vendor/three\.interaction/build/three\.interaction\.module.js";
 import {GUI} from "https://unpkg.com/three/examples/jsm/libs/dat.gui.module.js";
-import {EMvertexShader, EMfragmentShader} from "./EMshaders.js";
-import {CCvertexShader, CCfragmentShader} from "./CCshaders.js";
-import {VvertexShader, VfragmentShader} from "./Vshaders.js";
+import {EMvertexShader, EMfragmentShader} from "./shaders/EMshaders.js";
+import {CCvertexShader, CCfragmentShader} from "./shaders/CCshaders.js";
+import {VvertexShader, VfragmentShader} from "./shaders/Vshaders.js";
 
 // Setup scene
 let scene = new THREE.Scene();
