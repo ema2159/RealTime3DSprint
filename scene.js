@@ -3,6 +3,7 @@ import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/Orb
 import { Interaction } from "./vendor/three\.interaction/build/three\.interaction\.module.js";
 import {GUI} from "https://unpkg.com/three/examples/jsm/libs/dat.gui.module.js";
 import {EMvertexShader, EMfragmentShader} from "./EMshaders.js";
+import {CCvertexShader, CCfragmentShader} from "./CCshaders.js";
 
 // Setup scene
 const cubePath = "./assets/cubeMap/";
@@ -75,6 +76,7 @@ video.onloadeddata = function () {
   scene.add(plane);
 
   createElevationMap();
+  createColorCloud();
   createGUI();
   createVideoInterface();
 
@@ -111,6 +113,41 @@ function createElevationMap() {
   plane.material.side = THREE.DoubleSide;
   scene.add(plane);
 };
+
+function createColorCloud() {
+  let discret = 10;
+  let points;
+
+  let colorSpaceMaterial = new THREE.ShaderMaterial({
+    vertexShader: CCvertexShader,
+    fragmentShader: CCfragmentShader,
+    uniforms: {
+      tex: { value: videoTexture },
+    }
+  });
+
+  const CCgeometry = new THREE.BufferGeometry();
+  const positions = [];
+  let counter = 0;
+  for (let i = 0; i < video.videoHeight; i += discret)
+    for (let j = 0; j < video.videoWidth; j += discret) {
+      // positions
+
+      const x = (i+0.5) / video.videoHeight;
+      const y = (j+0.5) / video.videoWidth;
+      const z = 0;
+
+      positions.push(x, y, z);
+      counter++;
+    }
+
+  CCgeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  CCgeometry.computeBoundingSphere();
+
+  points = new THREE.Points(CCgeometry, colorSpaceMaterial);
+  points.position.set(1.5, 0, -0.3);
+  scene.add(points);
+}
 
 // Fixed GUI
 function createGUI() {
