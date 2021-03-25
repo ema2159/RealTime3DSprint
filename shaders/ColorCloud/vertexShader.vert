@@ -1,4 +1,4 @@
-uniform sampler2D tex;
+uniform sampler2D image;
 varying vec3 color;
 
 void main() {
