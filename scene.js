@@ -4,6 +4,7 @@ import { Interaction } from "./vendor/three\.interaction/build/three\.interactio
 import {GUI} from "https://unpkg.com/three/examples/jsm/libs/dat.gui.module.js";
 import {EMvertexShader, EMfragmentShader} from "./EMshaders.js";
 import {CCvertexShader, CCfragmentShader} from "./CCshaders.js";
+import {vertexShader, fragmentShader} from "./shaders.js";
 
 // Setup scene
 const cubePath = "./assets/cubeMap/";
@@ -73,8 +74,13 @@ video.onloadeddata = function () {
     1,
     video.videoHeight / video.videoWidth
   );
-  let videoMaterial = new THREE.MeshBasicMaterial({
-    map: videoTexture,
+  let videoMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+      scaleElevation: {type: "f", value: 0.2},
+      ...commonUniforms,
+    },
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
     side: THREE.DoubleSide,
   });
   let plane = new THREE.Mesh(geometry, videoMaterial);
