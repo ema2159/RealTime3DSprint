@@ -236,7 +236,7 @@ function createVideoInterface() {
       console.log(video.currentTime);
     },
     remove10sec: function () {
-      video.currentTime = video.currentTime - 1;
+      video.currentTime = video.currentTime - 10;
       console.log(video.currentTime);
     },
   };
