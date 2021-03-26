@@ -12,6 +12,30 @@ vec3 rgb2xyz(vec3 c) {
                       0.1192, 0.9505);
   return xyz_mat * tmp;
 }
+
+vec3 rgb2lab(vec3 c) {
+  vec3 xyz_norm = 100.0 * rgb2xyz(c) / vec3(95.047, 100.0, 108.883);
+
+  vec3 lab;
+  float delta = 6.0 / 29.0;
+
+  lab.x = (xyz_norm.x > pow(delta, 3.0))
+               ? pow(xyz_norm.x, 1.0 / 3.0)
+               : (((1.0 / 3.0 * pow(delta, 2.0)) * xyz_norm.x) + (4.0 / 29.0));
+  lab.y = (xyz_norm.y > pow(delta, 3.0))
+               ? pow(xyz_norm.y, 1.0 / 3.0)
+               : (((1.0 / 3.0 * pow(delta, 2.0)) * xyz_norm.y) + (4.0 / 29.0));
+  lab.z = (xyz_norm.z > pow(delta, 3.0))
+               ? pow(xyz_norm.z, 1.0 / 3.0)
+               : (((1.0 / 3.0 * pow(delta, 2.0)) * xyz_norm.z) + (4.0 / 29.0));
+
+  vec3 tmp;
+  tmp.x = (116.0 * lab.y) - 16.0;
+  tmp.y = 500.0 * (lab.x - lab.y);
+  tmp.z = 200.0 * (lab.y - lab.z);
+
+  return tmp;
+}
 void main() {
   color = texture2D ( image, position.xy ).rgb;
   float size;
@@ -29,6 +53,13 @@ void main() {
   // XYZ
   if (coordSystem == 1) {
     pos = rgb2xyz(color);
+  }
+  // Lab
+  if (coordSystem == 2) {
+    vec3 lab_col = rgb2lab(color);
+    pos.x = (lab_col[2]+86.185) / 184.439;
+    pos.y = lab_col[0]/100.0;
+    pos.z = (lab_col[1]+107.863) / 202.345;
   }
   size *= 3.0;
   gl_PointSize = 1.0*size;
