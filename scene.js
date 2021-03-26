@@ -282,6 +282,15 @@ function create3DGUI() {
   document.addEventListener( 'pointerdown', onMouseDown, false );
   document.addEventListener( 'pointermove', onMouseMove, false );
 
+
+  function resize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+  }
+
+  window.addEventListener( 'resize', resize, false );
+
   ui2 = new UIL.Gui( { w:cw, maxHeight:ch, parent:null, isCanvas:true } );
   ui2.add('title', { name:'Controls'});
   // Change color cloud coordinate system
