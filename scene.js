@@ -283,6 +283,7 @@ function create3DGUI() {
 
   ui2 = new UIL.Gui( { w:cw, maxHeight:ch, parent:null, isCanvas:true } );
   ui2.add('title', { name:'Controls'});
+  // Change color cloud coordinate system
   const coordsObject = {
     RBG: 0,
     XYZ: 1,
@@ -296,6 +297,20 @@ function create3DGUI() {
     },
     list: Object.keys(coordsObject),
     value:"RGB"});
+  // Change chanel
+  const chanelObject = {
+    All: 0,
+    Ch1: 1,
+    Ch2: 2,
+    Ch3: 3
+  };
+  ui2.add('list', {
+    name:'EM chanel',
+    callback:(ch)=> {
+      EMMaterial.uniforms.chanel = {type: "i", value: chanelObject[ch]};
+    },
+    list: Object.keys(chanelObject),
+    value:"All"});
 
   ui2.onDraw = function () {
 
