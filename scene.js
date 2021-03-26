@@ -5,7 +5,6 @@ import { Interaction } from "./vendor/three\.interaction/build/three\.interactio
 import "./vendor/uil/build/uil.js";
 import {EMvertexShader, EMfragmentShader} from "./shaders/EMshaders.js";
 import {CCvertexShader, CCfragmentShader} from "./shaders/CCshaders.js";
-import {VvertexShader, VfragmentShader} from "./shaders/Vshaders.js";
 
 // Setup scene
 let scene = new THREE.Scene();
