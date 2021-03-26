@@ -1,6 +1,7 @@
 import * as THREE from "https://unpkg.com/three/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/OrbitControls.js";
 import { Interaction } from "./vendor/three\.interaction/build/three\.interaction\.module.js";
+import "./vendor/uil/build/uil.js";
 import {GUI} from "https://unpkg.com/three/examples/jsm/libs/dat.gui.module.js";
 import {EMvertexShader, EMfragmentShader} from "./shaders/EMshaders.js";
 import {CCvertexShader, CCfragmentShader} from "./shaders/CCshaders.js";
