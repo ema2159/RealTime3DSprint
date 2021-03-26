@@ -3,6 +3,8 @@ uniform int chanel;
 uniform int coordSystem;
 varying vec3 color;
 
+#define PI 3.14159265358979323846
+
 vec3 rgb2xyz(vec3 c) {
   vec3 tmp;
   tmp.x = (c.r > 0.04045) ? pow((c.r + 0.055) / 1.055, 2.4) : c.r / 12.92;
@@ -36,6 +38,17 @@ vec3 rgb2lab(vec3 c) {
 
   return tmp;
 }
+
+vec3 rgb2hsv(vec3 c) {
+  vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+  vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
+  vec4 q = mix(vec4(p.xyw, c.r), vec4(c.r, p.yzx), step(p.x, c.r));
+
+  float d = q.x - min(q.w, q.y);
+  float e = 1.0e-10;
+  return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+}
+
 void main() {
   color = texture2D ( image, position.xy ).rgb;
   float size;
@@ -61,6 +74,20 @@ void main() {
     pos.y = lab_col[0]/100.0;
     pos.z = (lab_col[1]+107.863) / 202.345;
   }
+  // HSV
+  if (coordSystem == 3) {
+    vec3 hsv_col = rgb2hsv(color);
+    float radius = hsv_col.y;
+    float theta = hsv_col.x*2.0*PI;
+    float height = hsv_col.z;
+    pos.x = radius*cos(theta);
+    pos.z = radius*sin(theta);
+    pos.y = height;
+    pos.x /= 2.0;
+    pos.z /= 2.0;
+    pos += vec3(.5, .0, .5);
+  }
+
   size *= 3.0;
   gl_PointSize = 1.0*size;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(color-vec3(.5,.5,.5), 1.0);
