@@ -386,7 +386,7 @@ function createVideoInterface() {
   let playButtonMaterial = new THREE.MeshBasicMaterial({
     // map: videoTexture,
     side: THREE.DoubleSide,
-    color: 0xDADADA,
+    color: 0xDA3C2F,
   });
 
   // Play/pause button
@@ -396,10 +396,10 @@ function createVideoInterface() {
   playPauseButton.cursor = 'pointer';
   playPauseButton.on('click', pausePlayObj.pausePlay);
   playPauseButton.on('mouseover', function() {
-    this.material.color.setHex(0xB0B0B0);
+    this.material.color.setHex(0xD03020);
   });
   playPauseButton.on('mouseout', function() {
-    this.material.color.setHex(0xDADADA);
+    this.material.color.setHex(0xDA3C2F);
   });
 
   // Forward and backward buttons
