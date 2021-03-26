@@ -281,26 +281,21 @@ function create3DGUI() {
   document.addEventListener( 'pointerdown', onMouseDown, false );
   document.addEventListener( 'pointermove', onMouseMove, false );
 
-  ui2 = new UIL.Gui( { w:cw, maxHeight:ch, parent:null, isCanvas:true } ).onChange( function( v ){ } );
-  ui2.add('title', { name:'Title'});
-  // ui2.add("color", {
-  //   name: "Cone",
-  //   callback: (color) => null,
-  //   type: "html",
-  //   value: 0x0fcf02,
-  // });
-  // ui2.add("color", {
-  //   name: "Sphere",
-  //   callback: (color) => null,
-  //   type: "html",
-  //   value: 0x79e6f3,
-  // });
-  // ui2.add("color", {
-  //   name: "Cylinder",
-  //   callback: (color) => null,
-  //   type: "html",
-  //   value: 0xe80202,
-  // });
+  ui2 = new UIL.Gui( { w:cw, maxHeight:ch, parent:null, isCanvas:true } );
+  ui2.add('title', { name:'Controls'});
+  const coordsObject = {
+    RBG: 0,
+    XYZ: 1,
+    Lab: 2,
+    HSV: 3
+  };
+  ui2.add('list', {
+    name:'Color coords',
+    callback:(coord)=> {
+      colorSpaceMaterial.uniforms.coordSystem = {type: "i", value: coordsObject[coord]};
+    },
+    list: Object.keys(coordsObject),
+    value:"RGB"});
 
   ui2.onDraw = function () {
 
