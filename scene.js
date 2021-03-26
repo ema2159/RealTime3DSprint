@@ -1,4 +1,5 @@
 import * as THREE from "https://unpkg.com/three/build/three.module.js";
+import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
 import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/OrbitControls.js";
 import { Interaction } from "./vendor/three\.interaction/build/three\.interaction\.module.js";
 import "./vendor/uil/build/uil.js";
@@ -45,6 +46,10 @@ controls.listenToKeyEvents(window); // optional
 
 // Append renderer to index.html body
 document.body.appendChild(renderer.domElement);
+
+// Add VR button
+document.body.appendChild( VRButton.createButton( renderer ) );
+renderer.xr.enabled = true;
 
 // Common shader uniforms
 let commonUniforms;
@@ -445,8 +450,6 @@ function createVideoInterface() {
   });
 }
 
-function animate() {
-  requestAnimationFrame(animate);
+renderer.setAnimationLoop( function () {
   renderer.render(scene, camera);
-}
-animate();
+} );
