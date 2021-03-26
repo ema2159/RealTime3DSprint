@@ -73,12 +73,8 @@ video.onloadeddata = function () {
     1,
     video.videoHeight / video.videoWidth
   );
-  let videoMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-      ...commonUniforms,
-    },
-    vertexShader: VvertexShader,
-    fragmentShader: VfragmentShader,
+  let videoMaterial = new THREE.MeshBasicMaterial({
+    map: videoTexture,
     side: THREE.DoubleSide,
   });
   let plane = new THREE.Mesh(geometry, videoMaterial);
