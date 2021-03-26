@@ -87,7 +87,7 @@ video.onloadeddata = function () {
 
   createElevationMap();
   createColorCloud();
-  createGUI();
+  create3DGUI();
   createVideoInterface();
 
   video.play();
@@ -216,6 +216,110 @@ function createGUI() {
   gui
     .add(colorSpaceMaterial.uniforms.coordSystem, "value", {RGB: 0, XYZ: 1, Lab: 2, HSV: 3})
     .name("Coord. System");
+}
+
+// GUI instantiation and elements
+function create3DGUI() {
+  // GUI variables, function and creation
+  let ui2;
+  let screen2 = null;
+  let interactive = new THREE.Group();
+  scene.add(interactive);
+  let uiPlane = new THREE.Mesh( new THREE.PlaneBufferGeometry( 1, 1 , 5, 1 ),
+				new THREE.MeshBasicMaterial( { transparent:true } ) );
+  uiPlane.position.z = 0;
+  uiPlane.position.y = 0;
+  uiPlane.position.x = -1;
+  uiPlane.rotation.y = Math.PI/2;
+  uiPlane.name = 'p2';
+  uiPlane.visible = false;
+
+  interactive.add( uiPlane );
+
+  let cw = 600, ch = 148;
+
+  let raycaster = new THREE.Raycaster();
+  let mouse = new THREE.Vector2();
+  let mouse2d = new THREE.Vector2();
+
+  function raytest ( e ) {
+    mouse.set( (e.clientX / window.innerWidth) * 2 - 1, - ( e.clientY / window.innerHeight) * 2 + 1 );
+    raycaster.setFromCamera( mouse, camera );
+    var intersects = raycaster.intersectObjects( interactive.children );
+    if ( intersects.length > 0 ){
+      var uv = intersects[ 0 ].uv;
+      mouse2d.x = Math.round( uv.x*cw );
+      mouse2d.y = ch - Math.round( uv.y*ch );
+      if( intersects[ 0 ].object.name === 'p2' ) {
+	ui2.setMouse( mouse2d )
+      }
+      return true;
+    } else {
+      ui2.reset( true );
+      return false;
+    }
+  }
+
+  // Mouse events
+  function onMouseUp( e ){
+    e.preventDefault();
+    if(!controls.enabled) controls.enabled = true;
+  }
+
+  function onMouseDown( e ){
+    e.preventDefault();
+    // If clicking GUI element, stop orbit controls
+    controls.enabled = raytest( e ) ? false : true;
+  }
+
+  function onMouseMove( e ) {
+    e.preventDefault();
+    raytest( e );
+  }
+
+  document.addEventListener( 'pointerup', onMouseUp, false );
+  document.addEventListener( 'pointerdown', onMouseDown, false );
+  document.addEventListener( 'pointermove', onMouseMove, false );
+
+  ui2 = new UIL.Gui( { w:cw, maxHeight:ch, parent:null, isCanvas:true } ).onChange( function( v ){ } );
+  ui2.add('title', { name:'Title'});
+  // ui2.add("color", {
+  //   name: "Cone",
+  //   callback: (color) => null,
+  //   type: "html",
+  //   value: 0x0fcf02,
+  // });
+  // ui2.add("color", {
+  //   name: "Sphere",
+  //   callback: (color) => null,
+  //   type: "html",
+  //   value: 0x79e6f3,
+  // });
+  // ui2.add("color", {
+  //   name: "Cylinder",
+  //   callback: (color) => null,
+  //   type: "html",
+  //   value: 0xe80202,
+  // });
+
+  ui2.onDraw = function () {
+
+    if( screen2 === null ){
+
+      screen2 = new THREE.Texture( this.canvas );
+      screen2.minFilter = THREE.LinearFilter;
+      screen2.needsUpdate = true;
+      uiPlane.material.map = screen2;
+      uiPlane.material.needsUpdate = true;
+      uiPlane.visible = true;
+      
+    } else {
+
+      screen2.needsUpdate = true;
+
+    }
+
+  }
 }
 
 // Basic controls
