@@ -64,6 +64,7 @@ video.onloadeddata = function () {
 
   commonUniforms = {
     image: {value: videoTexture},
+    coordSystem: {type: "i", value: 0},
     chanel: {type: "i", value: 0},
   }
 
@@ -131,7 +132,6 @@ function createColorCloud() {
     vertexShader: CCvertexShader,
     fragmentShader: CCfragmentShader,
     uniforms: {
-      coordSystem: {type: "i", value: 0},
       ...commonUniforms
     }
   });
@@ -294,6 +294,7 @@ function create3DGUI() {
     name:'Color coords',
     callback:(coord)=> {
       colorSpaceMaterial.uniforms.coordSystem = {type: "i", value: coordsObject[coord]};
+      EMMaterial.uniforms.coordSystem = {type: "i", value: coordsObject[coord]};
     },
     list: Object.keys(coordsObject),
     value:"RGB"});
