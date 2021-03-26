@@ -19,6 +19,8 @@ const texture = loader.load(
     scene.background = rt;
   });
 
+scene.position.set(0, 0.5, -0.8);
+
 // Camera configuration
 // Parameters: FOV, aspect ratio, minimum rendering distance, maximum rendering distance
 const camera = new THREE.PerspectiveCamera(
