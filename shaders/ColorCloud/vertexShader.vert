@@ -1,5 +1,6 @@
 uniform sampler2D image;
 uniform int chanel;
+uniform int coordSystem;
 varying vec3 color;
 
 void main() {

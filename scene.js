@@ -122,14 +122,16 @@ function createElevationMap() {
   scene.add(plane);
 };
 
+let colorSpaceMaterial;
 function createColorCloud() {
   let discret = 10;
   let points;
 
-  let colorSpaceMaterial = new THREE.ShaderMaterial({
+  colorSpaceMaterial = new THREE.ShaderMaterial({
     vertexShader: CCvertexShader,
     fragmentShader: CCfragmentShader,
     uniforms: {
+      coordSystem: {type: "i", value: 0},
       ...commonUniforms
     }
   });
@@ -211,6 +213,9 @@ function createGUI() {
   gui
     .add(commonUniforms.chanel, "value", {RGB: 0, R: 1, G: 2, B: 3})
     .name("Chanel");
+  gui
+    .add(colorSpaceMaterial.uniforms.coordSystem, "value", {RGB: 0, XYZ: 1, Lab: 2, HSV: 3})
+    .name("Coord. System");
 }
 
 // Basic controls
