@@ -3,7 +3,6 @@ import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js
 import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/OrbitControls.js";
 import { Interaction } from "./vendor/three\.interaction/build/three\.interaction\.module.js";
 import "./vendor/uil/build/uil.js";
-import {GUI} from "https://unpkg.com/three/examples/jsm/libs/dat.gui.module.js";
 import {EMvertexShader, EMfragmentShader} from "./shaders/EMshaders.js";
 import {CCvertexShader, CCfragmentShader} from "./shaders/CCshaders.js";
 import {VvertexShader, VfragmentShader} from "./shaders/Vshaders.js";
@@ -182,44 +181,6 @@ function createColorCloud() {
   axesHelper.position.set(ccpos[0]-0.5, ccpos[1]-0.499, ccpos[2]+0.5);
   axesHelper.rotation.y = Math.PI/2;
   scene.add( axesHelper );
-}
-
-// Fixed GUI
-function createGUI() {
-  let cameraControls = {
-    goToVideo: function () {
-      camera.position.set(0, 0, 0);
-      controls.target.set(0, 0, -2);
-      controls.update();
-    },
-    goToEMap: function () {
-      camera.position.set(0, 0.5, 1);
-      controls.target.set(0, 0, 0);
-      controls.update();
-    },
-    goToCCloud: function () {
-      camera.position.set(-0.7, 0.4, 0.5);
-      controls.target.set(1.5, 0, -0.5);
-      controls.update();
-    },
-    showAll: function () {
-      camera.position.set(0, 0.6, 1.4);
-      controls.target.set(0, 0, 0);
-      controls.update();
-    },
-  };
-
-  let gui = new GUI();
-  gui.add(cameraControls, "goToVideo").name("Go to video");
-  gui.add(cameraControls, "goToEMap").name("Go to elev. map");
-  gui.add(cameraControls, "goToCCloud").name("Go to color cloud");
-  gui.add(cameraControls, "showAll").name("Show all");
-  gui
-    .add(commonUniforms.chanel, "value", {RGB: 0, R: 1, G: 2, B: 3})
-    .name("Chanel");
-  gui
-    .add(colorSpaceMaterial.uniforms.coordSystem, "value", {RGB: 0, XYZ: 1, Lab: 2, HSV: 3})
-    .name("Coord. System");
 }
 
 // GUI instantiation and elements
