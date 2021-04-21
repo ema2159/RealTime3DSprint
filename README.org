@@ -1,0 +1,15 @@
+#+TITLE: Project Work 2: Three.js
+#+CREATOR: Emmanuel Bustos T.
+#+OPTIONS: toc:nil
+
+* Description
+  This repository corresponds to the final project of the Real Time 3D Visualization course, completed on a 20 hours/3 days sprint.
+  It corresponds to a 3D scene where a monitor screen with a video is displayed alongside its elevation map and color cloud. The color space and coordinates displayed can be controlled through a 3D GUI placed in the scene.
+* Instructions
+  You'll require the [[https://www.npmjs.com/package/live-server][live-server]] NPM package. Then, simply download and execute the =live-server= command inside the =src/= directory. You can also view the project in [[https://ema2159.github.io/RealTime3DSprint/][this]] GitHub Page: 
+
+* Demo
+  [[./demo.gif]]
+
+* Limitations
+  Due to time limitations, the VR controller support was not implemented.
